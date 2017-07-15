@@ -1,6 +1,7 @@
 const program = require('commander');
 const setupAction = require('./actions/setup');
 const listAction = require('./actions/list');
+const listVersion = require('./actions/version');
 
 const loadArgsAndDo = action => {
   const args = program.args.filter(item => typeof item === 'object');
@@ -27,6 +28,11 @@ program
   )
   .action(() => loadArgsAndDo(setupAction));
 
-program.command('list').description('Lists availble supported starter-kyts').action(listAction);
+program
+  .description('Retrieves currently installed kyt-cli version')
+  .command('version')
+  .option('-v, --version')
+  .action(listVersion);
 
+program.command('list').description('Lists availble supported starter-kyts').action(listAction);
 program.parse(process.argv);
